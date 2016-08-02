@@ -1589,7 +1589,8 @@ a {
   background-color: #f0f0f0;
   width: 100%;
   padding: .5em;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
+  margin-top: 15px;
   position: relative;
   overflow: hidden; }
   .cards .banda {

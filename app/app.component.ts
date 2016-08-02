@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component , trigger , state } from '@angular/core';
 
 export class Producto {
     id:                   number;
@@ -15,25 +15,27 @@ export class Producto {
     online:               string;
     imagenSrc:            string;
 }
+
+
 @Component({
   selector: 'my-app',
   template: `
   <div class="ed-container">
-    <div class="ed-item movil-50 abcenter tablet-1-3" *ngFor="let producto of productos">
+    <div class="ed-item movil-50 abcenter tablet-1-3" *ngFor="let producto of productos; let i=index">
       <div class="cards">
-        <div ngClass="on" estado="online"></div>
+        <div [ngClass]="producto.online === 'online' ? 'on': 'off'" attr.estado="{{producto.online}}"></div>
         <h3>{{producto.titulo}}</h3>
         <i>{{producto.padre}}</i>
-        <div class="banda" ngClass="original" clon="original"></div>
+        <div class="banda" [ngClass]="producto.tipo === 'original' ? 'original' : 'clon'" attr.clon="{{producto.tipo}}"></div>
         <figure>
           <img src="{{producto.imagenSrc}}" alt="">
-          <figcaption last="3">★</figcaption>
+          <figcaption attr.last="{{ i + 1 | number : '2.0'}}">★</figcaption>
         </figure>
         <a href={{producto.enlace}} target="blank">{{producto.enlace}}</a>
         <div class="desplegable">
-          <p ngClass="positivo" (click)="toggle=!toggle">Subdominios disponibles</p>
-          <ul *ngIf="toggle" ngClass="open" >
-            <li   *ngFor="let dominio of producto.subdominios">
+          <p [ngClass]="producto.subdominios.length === 0 ? 'negativo':'positivo'"  (click)="toggle();">Subdominios disponibles</p>
+          <ul *ngIf="custom" [ngClass]="custom === custom ? 'open' : 'close'" >
+            <li *ngFor="let dominio of producto.subdominios">
               <a href="{{dominio}}" target="blank">{{dominio}}</a>
             </li>
           </ul>
@@ -46,6 +48,7 @@ export class Producto {
 })
 export class AppComponent {
   title = 'Productos tve Mart';
+  custom :boolean;
   productos: Producto[] = [{
     id: 20,
     all:"all",
@@ -59,7 +62,7 @@ export class AppComponent {
     subdominioResponsive: "noResponsive",
     subdominioNewEra:"old-era",
     online: "online",
-    imagenSrc:"img/11plantas.jpg"
+    imagenSrc:"http://worldshopmart.com/img/11plantas.jpg"
   },
   {
     id:29,
@@ -69,11 +72,11 @@ export class AppComponent {
     version:"old-era",
     titulo:"Sueño Reparador",
     enlace:"http://dormirmejor.net/",
-    subdominios:["http://dormirmejor.net/f/"],
+    subdominios:[],
     responsive: "responsiveSi",
     subdominioResponsive: "subResponsive",
     subdominioNewEra:"old-era",
-    online: "online",
+    online: "offline",
     imagenSrc:"http://dormirmejor.net/images/camb1.png"
   },
   {
@@ -92,5 +95,8 @@ export class AppComponent {
     imagenSrc:"http://www.prosta-pro.com/img/img-05.png"
   }];
 
+  toggle () {
+    this.custom=!this.custom;
+  }
  
 }
