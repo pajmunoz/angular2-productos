@@ -1633,6 +1633,7 @@ a {
     width: 100%;
     margin: 0;
     background-color: #ddd;
+    cursor:pointer;
     line-height: 0; }
     .cards figure img {
       max-height: 100%; }
