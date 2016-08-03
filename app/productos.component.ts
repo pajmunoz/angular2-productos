@@ -1,20 +1,35 @@
 import { Component , OnInit } from '@angular/core';
 import  { Producto } from './producto'
-
-
+import { ROUTER_DIRECTIVES } from '@angular/router';
+// import { ProductosServices} from './producto.services';
 @Component({
 	selector: 'productos-card',
-	templateUrl: 'app/productos.component.html'
+	templateUrl: 'app/productos.component.html',
+	directives:[ROUTER_DIRECTIVES]
+	// providers: [ProductoServices]
 })
 
 export class ProductosComponent {
 	custom :boolean;
-	selectedProducto: Producto;
 	productos = PRODUCTO;
 	toggle (producto) {
 		producto.custom=!producto.custom;
 	}
 	onSelect(producto: Producto) { return producto; }
+/*
+	  // Private property for binding
+  dogs: Observable<string[]>;
+
+  constructor(private productoService: ProductoService) {
+
+  }
+
+  // carga los datos cuando el componente este listo 
+  ngOnInit() {
+    // Pass retreived pets to the property
+    this.dogs = this.petService.findPets('dog');
+  }
+  */
 }
 
   var PRODUCTO: Producto[] = [

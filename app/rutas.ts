@@ -13,7 +13,7 @@ const routes: RouterConfig = [
 		component: ProductosComponent
 	},
 	{
-		path: 'detail',
+		path: 'detail/:id',
 		component: ProductoDetalle
 	}
 ];
