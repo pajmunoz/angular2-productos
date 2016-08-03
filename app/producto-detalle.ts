@@ -1,9 +1,9 @@
-import { Component, Input , OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy , Input  } from '@angular/core';
 import { Producto } from './producto';
-import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map'
 import { ROUTER_DIRECTIVES , ActivatedRoute } from '@angular/router';
 import { ProductosComponent } from './productos.component'
-// import { ProductosServices} from './productos.services';
+import { ProductoServices } from './newService'
 
 @Component({
   selector: 'producto-detalle',
@@ -17,30 +17,42 @@ import { ProductosComponent } from './productos.component'
 							<img src="{{producto.imagenSrc}}" alt="" />
 						</figure>
 					</div>
-					<button (click)="goBack();"></button>
+					<button (click)="goBack();">volver</button>
 				</div>
   `,
-  directives:[ROUTER_DIRECTIVES]
-  // providers: [ProductoServices]
+  directives:[ROUTER_DIRECTIVES],
+  providers: [ProductoServices]
 })
-export class ProductoDetalle implements OnInit{
-	@Input()
-	producto: Producto;
+
+
+export class ProductoDetalle implements OnInit, OnDestroy{
+	@Input() producto: Producto;
+	
 	private sub:any;
-  	constructor(
-    	 private route: ActivatedRoute) {}
 
-  // Load data ones componet is ready
-  	ngOnInit() {
-      // Subscribe to route params
-      this.sub = this.route.params.subscribe(params => {
+  	constructor(private route: ActivatedRoute , 
+  				private nuevoServicio: ProductoServices ) {
 
-        let id = params['id'];
-
-       // Retrieve Pet with Id route param
-        //this.petService.findPetById(id).subscribe(producto => this.producto = producto);
-    	});
+       
   	}
+  	ngOnInit(){
+
+	    this.sub = this.route.params.subscribe(params => {
+	      let id = params['id'];
+
+	        
+	    });
+	      let objetico = this.nuevoServicio.getProductos();
+	      Object.keys(objetico).map(function(value, index){
+	      	objetico[value] *= 2;
+	      });
+	      console.log(objetico);
+
+  	}
+	ngOnDestroy() {
+		this.sub.unsubscribe();
+	}
+
 
 	goBack() {
 		window.history.back();

@@ -10,7 +10,7 @@ const routes: RouterConfig = [
 	},
 	{
 		path: 'productos',
-		component: ProductosComponent
+		component: ProductosComponent,
 	},
 	{
 		path: 'detail/:id',
