@@ -18,7 +18,7 @@ import 'rxjs/add/operator/catch';
 export class ProductosComponent {
 	custom :boolean;
 	productos: Producto[];
-	@Input() producto: Producto;
+	producto: Producto;
 
 	toggle (producto) {
 		producto.custom=!producto.custom;

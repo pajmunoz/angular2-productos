@@ -9,18 +9,29 @@ import { ProductoServices } from './newService'
   selector: 'producto-detalle',
   template: `
 				<div class="ed-container" *ngIf="producto">
-					<div class="ed-item">
-						{{producto.titulo}} -- id: {{producto.id}}
-					</div>
-					<div class="ed-item">
+					<div class="ed-item tablet-50">
+						<h2>{{producto.titulo | uppercase}}</h2>
 						<figure>
 							<img src="{{producto.imagenSrc}}" alt="" />
 						</figure>
+						
 					</div>
-					<button (click)="goBack();">volver</button>
+					<div class="ed-item tablet-50">
+						<a href="{{producto.enlace}}" target="blank"><p>{{producto.enlace}}</p></a>
+						<p>tipo : {{producto.tipo}}</p>
+						<p>{{producto.padre}}</p>
+						<ul *ngIf="producto.subdominios">
+							<li *ngFor="let dominio of producto.subdominios">
+								<a href="{{dominio}}" target="blank">{{dominio}}</a>
+							</li>
+						</ul>
+						<button (click)="goBack();">volver</button>
+					</div>
+					
 				</div>
   `,
-  providers:[ ProductoServices ]
+  	directives:[ROUTER_DIRECTIVES],
+  	providers:[ ProductoServices ]
 })
 
 
@@ -28,8 +39,6 @@ export class ProductoDetalle implements OnInit, OnDestroy{
 	producto: Producto;
 	productos: Producto[];
 	sub:any;
-	@Output() close = new EventEmitter();
-	navigated = false;
   	constructor(private route: ActivatedRoute , 
   				private nuevoServicio: ProductoServices ) {
 
@@ -38,15 +47,17 @@ export class ProductoDetalle implements OnInit, OnDestroy{
   	ngOnInit(){
 
 		this.sub = this.route.params.subscribe(params => {
-			if (params['id'] !== undefined) {
+
 				let id = params['id'];
-				this.navigated = true;
-				this.nuevoServicio.getProducto(id)
-        			.then(producto => this.producto = producto);
-    		}else{
-    			this.navigated = false;
-    			this.producto = new Producto();
-    		}
+				this.nuevoServicio.getProductos()
+        			.subscribe(productos => {
+        				this.productos = productos
+        				for(let productoOk in productos){
+        					if(this.productos[productoOk].id === id){
+        						this.producto = this.productos[productoOk]; 
+        					}
+        				}
+        			});
     	});
   	}
 

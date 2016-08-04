@@ -1,5 +1,5 @@
 <div class="ed-container">
-  <div class="ed-item movil-50 abcenter tablet-1-3" *ngFor="let producto of productos; let i=index">
+  <div class="ed-item movil-50 abcenter tablet-25" *ngFor="let producto of productos; let i=index">
     <div class="cards">
       <div [ngClass]="producto.online === 'online' ? 'on': 'off'" attr.estado="{{producto.online}}"></div>
       <h3>{{producto.titulo}}</h3>
