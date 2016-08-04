@@ -5,7 +5,7 @@
       <h3>{{producto.titulo}}</h3>
       <i>{{producto.padre}}</i>
       <div class="banda" [ngClass]="producto.tipo === 'clon' ? 'clon' : 'original'" attr.clon="{{producto.tipo}}"></div>
-        <figure (click)="onSelect(producto)">
+        <figure (click)="onSelect(producto);">
           <img src="{{producto.imagenSrc}}" alt="">
           <figcaption attr.last="{{ i + 1 | number : '2.0'}}">★</figcaption>
         </figure>

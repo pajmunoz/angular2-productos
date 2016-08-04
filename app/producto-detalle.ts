@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy , Input  } from '@angular/core';
+import { Component, OnInit, OnDestroy , Output , EventEmitter } from '@angular/core';
 import { Producto } from './producto';
 import 'rxjs/add/operator/map'
 import { ROUTER_DIRECTIVES , ActivatedRoute } from '@angular/router';
@@ -20,16 +20,16 @@ import { ProductoServices } from './newService'
 					<button (click)="goBack();">volver</button>
 				</div>
   `,
-  directives:[ROUTER_DIRECTIVES],
-  providers: [ProductoServices]
+  providers:[ ProductoServices ]
 })
 
 
 export class ProductoDetalle implements OnInit, OnDestroy{
-	@Input() producto: Producto;
-	
-	private sub:any;
-
+	producto: Producto;
+	productos: Producto[];
+	sub:any;
+	@Output() close = new EventEmitter();
+	navigated = false;
   	constructor(private route: ActivatedRoute , 
   				private nuevoServicio: ProductoServices ) {
 
@@ -37,18 +37,19 @@ export class ProductoDetalle implements OnInit, OnDestroy{
   	}
   	ngOnInit(){
 
-	    this.sub = this.route.params.subscribe(params => {
-	      let id = params['id'];
-
-	        
-	    });
-	      let objetico = this.nuevoServicio.getProductos();
-	      Object.keys(objetico).map(function(value, index){
-	      	objetico[value] *= 2;
-	      });
-	      console.log(objetico);
-
+		this.sub = this.route.params.subscribe(params => {
+			if (params['id'] !== undefined) {
+				let id = params['id'];
+				this.navigated = true;
+				this.nuevoServicio.getProducto(id)
+        			.then(producto => this.producto = producto);
+    		}else{
+    			this.navigated = false;
+    			this.producto = new Producto();
+    		}
+    	});
   	}
+
 	ngOnDestroy() {
 		this.sub.unsubscribe();
 	}
