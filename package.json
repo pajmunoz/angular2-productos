@@ -13,10 +13,10 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CarlosManotas/otroNIvel"
+    "url": "https://github.com/CarlosManotas/angular2-productos"
   },
   "bugs": {
-    "url": "https://github.com/CarlosManotas/otroNIvel/issues"
+    "url": "https://github.com/CarlosManotas/angular2-productos/issues"
   },
   "license": "ISC",
   "dependencies": {
