@@ -1,4 +1,4 @@
-OtroNivel  es solo una prueba del FRAMEWORK de Angular2 entendiendo sus conceptos.
+angular2-productos  es solo una prueba del FRAMEWORK de Angular2 entendiendo sus conceptos.
 
 Creado por Carlos Manotas
 
