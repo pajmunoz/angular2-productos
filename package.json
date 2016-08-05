@@ -1,5 +1,5 @@
 {
-  "name": "angular2-quickstart",
+  "name": "productos-tveMart/angular2",
   "version": "1.0.0",
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
@@ -8,6 +8,15 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "typings": "typings"
+  },
+  "author": "Carlos Manotas <carlosmanotas@hotmail.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CarlosManotas/otroNIvel"
+  },
+  "bugs": {
+    "url": "https://github.com/CarlosManotas/otroNIvel/issues"
   },
   "license": "ISC",
   "dependencies": {
